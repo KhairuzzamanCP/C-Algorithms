@@ -24,7 +24,17 @@ void dsu_union(int a, int b)
     int leaderB = dsu_find(b);
     if (leaderA != leaderB)
     {
-        parent[leaderB] = leaderA;
+        if (parentSize[leaderA] > parentSize[leaderB])
+        {
+            // A leader
+            parent[leaderB] = leaderA;
+            parentSize[leaderA] += parentSize[leaderB];
+        }
+        else
+        {
+            parent[leaderA] = leaderB;
+            parentSize[leaderB] += parentSize[leaderA];
+        }
     }
 }
 int main()
@@ -38,6 +48,6 @@ int main()
         cin >> a >> b;
         dsu_union(a, b);
     }
-    cout << dsu_find(5);
+    cout << dsu_find(6);
     return 0;
 }
